@@ -5,6 +5,8 @@ const app = express();
 
 app.use((req, res, next) => {
   console.log("\n\nAllWAYS");
+  console.log("req : " +  req.url)
+  next();
 })
 
 app.get("/a", (req, res) => {
@@ -18,6 +20,7 @@ app.get("/a", (req,res) => {
 
 app.get('/b', (req, res, next) => {
   console.log(`/b: route not terminated`);
+  next();
 })
 
 app.use((req, res, next)=> {

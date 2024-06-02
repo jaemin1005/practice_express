@@ -7,7 +7,8 @@ const readLine = rl.createInterface({
 });
 
 function fetchGET(){
-  readLine.question("보낼 데이터를 입력해주세요.", async (anwer) => {
+  readLine.question("보낼 데이터를 입력해주세요. : ", async (anwer) => {
+    console.log("보내는 데이터 : " + url+anwer);
     let res = await fetch(url+anwer);
     console.log(res);
     fetchGET();
