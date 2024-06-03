@@ -4,9 +4,10 @@ import cookieParser = require("cookie-parser");
 import path = require("path");
 import { ICredential } from "./interface/ICredential";
 import expressSession = require("express-session");
+import morgan = require("morgan");
+import fs = require("fs");
+
 const credentials : ICredential = require("../.credentials.development");
-
-
 const app = express();
 
 // 핸들바 뷰 엔진 설정 :)
@@ -24,6 +25,16 @@ app.use(expressSession({
   saveUninitialized : false,
   secret : credentials.cookieSecret
 }))
+
+switch(app.get("env")){
+  case "development":
+    app.use(morgan("dev"));
+    break;
+  case "production":
+    const stream = fs.createWriteStream(__dirname + "/access.log", { flags: "a"})
+    app.use(morgan("combined", {stream}))
+    break;
+}
 
 
 
