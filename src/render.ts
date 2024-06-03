@@ -3,6 +3,7 @@ import expressHandlebars = require("express-handlebars");
 import cookieParser = require("cookie-parser");
 import path = require("path");
 import { ICredential } from "./interface/ICredential";
+import expressSession = require("express-session");
 const credentials : ICredential = require("../.credentials.development");
 
 
@@ -13,9 +14,18 @@ app.engine('handlebars', expressHandlebars.engine({
   defaultLayout: 'main',
 }));
 app.set("view engine", 'handlebars');
-
+    
 //* 쿠키 테스트 :)
+//* 쿠키 미들웨어는 세션 미들웨어보다 먼저 연결해야 한다.
 app.use(cookieParser(credentials.cookieSecret));
+
+app.use(expressSession({
+  resave : false,
+  saveUninitialized : false,
+  secret : credentials.cookieSecret
+}))
+
+
 
 app.get("/", (req, res) => {
   res.cookie("monster", "nom nom");
