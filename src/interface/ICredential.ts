@@ -1,0 +1,3 @@
+interface ICredential{
+  "cookieSecret" : string
+}
