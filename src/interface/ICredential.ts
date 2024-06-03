@@ -1,3 +1,3 @@
-interface ICredential{
+export interface ICredential{
   "cookieSecret" : string
 }

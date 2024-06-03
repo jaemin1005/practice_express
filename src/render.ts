@@ -1,6 +1,10 @@
 import express = require("express");
 import expressHandlebars = require("express-handlebars");
+import cookieParser = require("cookie-parser");
 import path = require("path");
+import { ICredential } from "./interface/ICredential";
+const credentials : ICredential = require("../.credentials.development");
+
 
 const app = express();
 
@@ -10,9 +14,12 @@ app.engine('handlebars', expressHandlebars.engine({
 }));
 app.set("view engine", 'handlebars');
 
-
+//* 쿠키 테스트 :)
+app.use(cookieParser(credentials.cookieSecret));
 
 app.get("/", (req, res) => {
+  res.cookie("monster", "nom nom");
+  res.cookie("signed_monster", "nom nom", {signed : true});
   res.render('home');
 })
 
