@@ -1,6 +1,5 @@
 import express from "express";
 import cluster from "cluster";
-import { Module } from "module";
 
 const app = express();
 
@@ -42,4 +41,4 @@ if(require.main === module){
   module.exports = StartServer;
 }
 
-export {}
+export default StartServer;
